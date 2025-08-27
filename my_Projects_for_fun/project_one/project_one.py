@@ -1,6 +1,6 @@
 # WH 2nd not for class
 
-names_txt = "C:/Users/william.haggard/Desktop/2nd haggard, william/WH_CP1/my_Projects_for_fun/project_one/numbers.txt"
+names_txt = "P:/Haggard, William/WH_CP1/first_Project/numbers.txt"
 name =  input("give your name: ")
 
 with open(names_txt, "r") as name_list:
