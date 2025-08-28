@@ -16,3 +16,14 @@ patience_level = -0.50
 
 #math
 print(8/4+7+-(8+2)%4**2)
+#change data types
+age = int(input("what is age: "))
+
+print(525600*age,"minutes old")
+
+brain_cells = float(input("how many brain cells do you have: "))
+
+print("you have", brain_cells)
+
+#rounding
+print(round(pi))
