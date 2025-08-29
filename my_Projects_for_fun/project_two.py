@@ -1,6 +1,6 @@
 # WH 2nd not for class
 
-file_name = "P:/Haggard, William/WH_CP1/progects/average_grade.py"
+file_name = "C:/Users/william.haggard/Desktop/New Text Document.txt"
 
 with open(file_name, 'r') as file:
     content = file.read()
