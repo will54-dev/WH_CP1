@@ -10,7 +10,7 @@ age = float(input("give your age: "))
 for space_name in name:
     if space_name in " ":
       name_space += 1
-if name_space < 2:
+if name_space < 3:
      print(f"hello {name}, it is nice to meat you! I can't believe you are {age: .0f}.")
 else:
     print("you are a bad person")
