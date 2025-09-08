@@ -1,8 +1,8 @@
 # WH 2nd Idiot Proof
 
 name = input("give your name: ")
-#phone = input("give your phone number: ")
-#gpa = input("give your GPA: ")
+phone = input("give your phone number: ")
+gpa = input("give your GPA: ")
 name_space = 0
 name_replace = name
 
