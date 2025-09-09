@@ -1,7 +1,6 @@
 # WH 2nd calculator practice
 
-number1_bool = False
-while number1_bool == False:    
-    number1 = input("give a number: ")
-    print(number1.isdigit())
 
+def number_che(number):
+    for space_name in number:
+        if space_name in "1234567890.":
