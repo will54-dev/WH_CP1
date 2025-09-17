@@ -1,6 +1,6 @@
 # WH 2nd not for class
 
-file_name = "C:/Users/william.haggard/Desktop/"
+file_name = "C:/Users/tyler.hurst/Desktop/"
 while_number = 1
 while_print = int(input("how many: "))+1
 if while_print < 501:
