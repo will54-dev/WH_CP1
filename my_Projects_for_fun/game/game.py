@@ -1,8 +1,11 @@
 # WH 2nd a game
 
-data_file = "my_Projects_for_fun/game/data.txt"
-
-with open(data_file, 'r') as file:
-    content = file.readlines()
-print(content)
+data_file = "my_Projects_for_fun/game/game.txt"
+line_1 = "***************"
+line_2 = "***************"
+line_3 = "*******#*******"
+line_4 = "***************"
+line_5 = "***************"
+with open(data_file, 'w') as file:
+    content = file.write(f"|{line_1}|\n|{line_2}|\n|{line_3}|\n|{line_4}|\n|{line_5}|")
     
