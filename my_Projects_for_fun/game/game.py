@@ -11,8 +11,20 @@ y = 0
 isopen = True
 while isopen:
     with open(data_file, 'w') as file:
-        content = file.write(f"|{line_1}|\n|{line_2}|\n|{line_3}|\n|{line_4}|\n|{line_5}|")
+        content = file.write("")
     with open(data_file, 'r') as file:
         content = file.read()
-        
+        for wasd in content:
+            if wasd in "w":
+                y += 1
+            if wasd in "s":
+                y -= 1
+            if wasd in "a":
+                x -= 1
+            if wasd in "d":
+                x += 1
+            if wasd in "o":
+                isopen = False
+        print(x)
+        print(y)
     
