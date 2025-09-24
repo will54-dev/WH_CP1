@@ -9,8 +9,11 @@ def suffle(cardt):
     cardt_2 = [cardt[0]-cardt[0]//2 , cardt[cardt[0]-cardt[0]//2:cardt[0]]]
     random_card_1 = 1
     random_card_2 = 1
+    random_count_1 = 0
+    random_count_1 = 0
     cardt_3 = [cardt[0]]
 
+    while
     random_val_1 = random.randint(1,2)
     random_val_2 = random.randint(1,2)
     cardt_3 += cardt_1[1][random_card_1:random_card_1+random_val_1]
