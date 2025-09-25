@@ -27,4 +27,4 @@ elif grade >= 60:
 else:
     let_grade = "a F"
 
-print(f"you have a {grade} that is {le}")
+print(f"you have a {grade} that is {let_grade}")
