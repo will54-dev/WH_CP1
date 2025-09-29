@@ -6,10 +6,11 @@ import random
 def suffle(clist):
     clist = list(clist)
     rpeat = len(clist)
+    newlist = []
     while rpeat != 0:
         randlist = random.choice(clist)
         clist.remove(randlist)
-        newlist += randlist
+        newlist.append(randlist)
         rpeat -= 1
     return newlist
 
