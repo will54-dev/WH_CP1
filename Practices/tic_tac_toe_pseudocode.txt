@@ -1,0 +1,46 @@
+ WH 2nd tic tac toe pseudocode practice
+
+ get a random function 
+ set contaners Game Bord, score, Game Bord win
+ set game bord to a lsit of 3 sets of 3
+    will look like this [[-,-,-],[-,-,-],[-,-,-]]
+ set Game Bord Win lsit of 9
+ set score to player 0, computer 0
+
+ loop forever:
+    show: your turn you are x
+    ask for a X
+    check if X is grator than 0 and less that 4 and still a wholle number if not ask for X
+    ask for a y
+    check if Y is grator than 0 and less that 4 and still a wholle number if not ask for Y
+    if list X of Y in Game Bord not a X or O
+        looking at Y that x
+        y set is x set, x set, and x set
+        x set is -,-, and -
+        if true:
+            add X at list X of Y in Game Bord
+        else:
+            repeat 11 throgh 22
+
+    have a random number grator or equal to 1 and less or equal to 3 wholle number = X
+    have a random number grator or equal to 1 and less or equal to 3 wholle number = Y
+        if list X of Y in Game Bord not a X or O
+        if true:
+            add X at list X of Y in Game Bord
+        else:
+            repeat 24 throgh 30
+    
+    for evry item in Game Bord run once (9):
+        if item in Game Bord == X 
+            add to position in Game Bord Win
+    if Game Bord Win == All tic tac toe win conditions
+        show: you win
+        add one to player wins
+        reset Game Bord
+    for evry item in Game Bord run once (9):
+        if item in Game Bord == O 
+            add to position in Game Bord Win
+    if Game Bord Win == All tic tac toe win conditions
+        show: you lose
+        add one to computer wins
+        reset Game Bord
