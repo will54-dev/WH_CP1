@@ -1,13 +1,13 @@
 # Wh 2nd password checker projects
 
 # user list to a list of e, pasword, Password, P@ssword, P@sswr0d
-user_list = [["e",1],["pasword",2],["Password",3],["P@ssword",4],["P@sswr0d",5]]
+user_list = [["e",1],["password",2],["Password",3],["P@ssword",4],["P@sswr0d",5]]
 # loop for the pasword checker
 while True:
 #   ask for the thing the user wants to do
     while True:
         try:
-            want = int(input("1: check a pasword\n2: see all paswords\n3: compare passwords\n4: exit\n"))
+            want = int(input("1: check a password\n2: see all passwords\n3: compare passwords\n4: exit\n"))
             break
         except:
             print("not a number")
@@ -47,7 +47,7 @@ while True:
 #               set num to 1
                 num = 1
 #           if letter has ~\`!@#$%^&*()\_+-={}[]|;':\"<>?,./ in it
-            if letter in "~`!@#$%^&*()\\_+-={\}[]|;':\"<>?,./":
+            if letter in "~`!@#$%^&*()\\_+-={}[]|;':\"<>?,./":
 #               set special to 1
                 special = 1
 #       if letter_length >= 8
@@ -58,6 +58,7 @@ while True:
 #       set strenght to special + num + uppper + lower + length
         strenght = special + num + upper + lower + lenght
 
+        print("------------------------------------------------------")
 #       if strenght = 0
         if strenght == 0:
 #           show [------------------------------]
@@ -82,7 +83,6 @@ while True:
         elif strenght == 5:
 #           show [##############################]
             print("[##############################]")
-        print("------------------------------------------------------")
 #       if special = 0
         if special == 0:
 #           show you need a special character.
@@ -111,13 +111,44 @@ while True:
 #   if the user wants to see all paswords
     elif want == 2:
 #       show user list but cool
-
+        item_lenght = 0
+        for x in user_list:
+            item_lenght += 1
+            print(f"{item_lenght}. {x[0]}: strenght {x[1]}")
+        print("------------------------------------------------------")
 #   if the user wants to compare pasword
-
+    elif want == 3:
 #       show user list but cool with out the strenght
+        item_lenght = 0
+        for x in user_list:
+            item_lenght += 1
+            print(f"{item_lenght}. {x[0]}")
+        print("------------------------------------------------------")
 
 #       user imput for item what do you want
-#       show your pasword pasword is strenght-user list item strenght points stronger.
+        while True:
+            try:
+                item1 = int(input("which item do you want.\n"))
+                item1 = user_list[item1-1]
+                break
+            except:
+                print("------------------------------------------------------")
+                print("not a number or not on list.")
+                print("------------------------------------------------------")
+        print("------------------------------------------------------")
+        while True:
+           try:
+               item2 = int(input("which item do you want to compare it with.\n"))
+               item2 = user_list[item2-1]
+               break
+           except:
+               print("------------------------------------------------------")
+               print("not a number or not on list.")
+               print("------------------------------------------------------")
+        print("------------------------------------------------------")
+        print(f"{item1[0]} is {item1[1]-item2[1]} stronger than {item2[0]}")
+        print("------------------------------------------------------")
+#       show your pasword pasword is strenght - user list item strenght points stronger.
 
 #   if the user wants to exit 
     elif want == 4:
