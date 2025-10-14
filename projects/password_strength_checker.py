@@ -1,7 +1,7 @@
 # Wh 2nd password checker projects
 
 # user list to a list of e, pasword, Password, P@ssword, P@sswr0d
-user_list = [["e",1],["password",2],["Password",3],["P@ssword",4],["P@sswr0d",5]]
+user_list = [["e",1],["password",2],["PASSword",3],["P@ssword",4],["P@sswr0d",5]]
 # loop for the pasword checker
 while True:
 #   ask for the thing the user wants to do
@@ -145,10 +145,10 @@ while True:
                print("------------------------------------------------------")
                print("not a number or not on list.")
                print("------------------------------------------------------")
-        print("------------------------------------------------------")
-        print(f"{item1[0]} is {item1[1]-item2[1]} stronger than {item2[0]}")
-        print("------------------------------------------------------")
 #       show your pasword pasword is strenght - user list item strenght points stronger.
+               print("------------------------------------------------------")
+               print(f"{item1[0]} is {item1[1]-item2[1]} stronger than {item2[0]}")
+               print("------------------------------------------------------")
 
 #   if the user wants to exit 
     elif want == 4:
