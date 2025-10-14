@@ -1,0 +1,28 @@
+# WH 2nd battle ship because I can
+
+bord_file_location = "P:/Haggard, William/WH_CP1/my_Projects_for_fun/battle_ship/bords.txt" 
+
+with open(bord_file_location, "w") as bord:
+    bord.write("""
+1234567890
+1234567890
+1234567890
+1234567890
+1234567890
+1234567890
+1234567890
+1234567890
+1234567890
+1234567890
+
+1234567890
+1234567890
+1234567890
+1234567890
+1234567890
+    1234567890
+    1234567890
+    1234567890
+ 1234567890
+ 1234567890
+""")
