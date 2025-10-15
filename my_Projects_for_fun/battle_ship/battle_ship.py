@@ -1,28 +1,8 @@
 # WH 2nd battle ship because I can
 
-bord_file_location = "P:/Haggard, William/WH_CP1/my_Projects_for_fun/battle_ship/bords.txt" 
 
-with open(bord_file_location, "w") as bord:
-    bord.write("""
-1234567890
-1234567890
-1234567890
-1234567890
-1234567890
-1234567890
-1234567890
-1234567890
-1234567890
-1234567890
 
-1234567890
-1234567890
-1234567890
-1234567890
-1234567890
-1234567890
-1234567890
-1234567890
-1234567890
-1234567890
-""")
+url = "https://docs.google.com/document/d/1r7Js5xhKke8GYH8b1hTVmmyGCbNerTdSQmekHvEq4F4/edit?tab=t.0"
+
+with open(url, "r") as item:
+    print(item.read())
