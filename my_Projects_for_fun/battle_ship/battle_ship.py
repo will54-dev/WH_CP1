@@ -1,8 +1,20 @@
 # WH 2nd battle ship because I can
 
+p1_bord = [[1,2,3,4,5,6,7,8,9,0],[1,2,3,4,5,6,7,8,9,0],[1,2,3,4,5,6,7,8,9,0],[1,2,3,4,5,6,7,8,9,0],[1,2,3,4,5,6,7,8,9,0],[1,2,3,4,5,6,7,8,9,0],[1,2,3,4,5,6,7,8,9,0],[1,2,3,4,5,6,7,8,9,0],[1,2,3,4,5,6,7,8,9,0],[1,2,3,4,5,6,7,8,9,0]]
+p2_bord = [[1,2,3,4,5,6,7,8,9,0],[1,2,3,4,5,6,7,8,9,0],[1,2,3,4,5,6,7,8,9,0],[1,2,3,4,5,6,7,8,9,0],[1,2,3,4,5,6,7,8,9,0],[1,2,3,4,5,6,7,8,9,0],[1,2,3,4,5,6,7,8,9,0],[1,2,3,4,5,6,7,8,9,0],[1,2,3,4,5,6,7,8,9,0],[1,2,3,4,5,6,7,8,9,0]]
 
-
-url = "https://docs.google.com/document/d/1r7Js5xhKke8GYH8b1hTVmmyGCbNerTdSQmekHvEq4F4/edit?tab=t.0"
-
-with open(url, "r") as item:
-    print(item.read())
+while True:
+    whant = 0
+    while True:
+        try:
+            whant = int(input("1. play a game.\n2. exit\n"))
+            break
+        except:
+            
+            print("not an number")
+    if whant == 1:
+        pass
+    elif whant == 2:
+        break
+    else:
+        print("not an option")
