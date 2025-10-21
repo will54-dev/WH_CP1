@@ -28,7 +28,7 @@ while True:
 #       set lenght to 0
         lenght = 0
 #       ask for the users pasword
-        password = input("make a password\n")
+        password = input("make a password to check\n")
 
 #       loop for each letter in password each letter being the letter
         for letter in password:
@@ -110,6 +110,7 @@ while True:
 
 #   if the user wants to see all paswords
     elif want == 2:
+        print("\tPasswords")
 #       show user list but cool
         item_lenght = 0
         for x in user_list:
@@ -128,7 +129,7 @@ while True:
 #       user imput for item what do you want
         while True:
             try:
-                item1 = int(input("which item do you want.\n"))
+                item1 = int(input("which password do you want to compare. (as a number)\n"))
                 item1 = user_list[item1-1]
                 break
             except:
@@ -138,7 +139,7 @@ while True:
         print("------------------------------------------------------")
         while True:
            try:
-               item2 = int(input("which item do you want to compare it with.\n"))
+               item2 = int(input("which password do you want to compare it with. (as a number)\n"))
                item2 = user_list[item2-1]
                break
            except:
