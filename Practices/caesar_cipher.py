@@ -34,8 +34,12 @@ def numToLetter(number):
             # return Let
             return let
 # defines a function that encode a masage
+def encoder(message,off_set):
     # set Fine_message as a string
+    fine_message = ""
     # a loop of each letter in in Message and the letter is Let
+    for let in message:
         #add function numToLetter with function caeserOffSet with Letter as let and Off_set and Off_set as Number to Fine_message
-
-print(numToLetter(caeserOffSet("A",0)))
+        fine_message += numToLetter(caeserOffSet(let,off_set))
+    #return fine_massage
+    return fine_message
