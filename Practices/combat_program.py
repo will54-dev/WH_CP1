@@ -113,7 +113,7 @@ elif enemy == 4:
     enemy_speed += 20
 
 else:
-    if random(1,10) != 1:
+    if random.randint(1,10) != 1:
         enemy = "You?"
         enemy_damage += damage
         enemy_defence += defence
@@ -140,15 +140,18 @@ while True:
         enemy_speed += 1
 
 while True:
+    if damage == 0:
+        print("you don't hav egnuth attack")
     if turn == 1:
         while True:
             combat = input("\nYou can.\n\t1.attack\n\t2.defend\n\t3.check\n")
             if combat == "1":
                 if damage > enemy_defence:
                     enemy_health -= damage - enemy_defence
-                    print(f"ou did {damage - enemy_defence} damage.")
+                    print(f"You did {damage - enemy_defence} damage.")
                 else:
                     enemy_defence -= 5
+                    print("You did 0 damage.")
                     print(f"{enemy}'s turn")   
                 turn = 2
                 temdefence = defence
@@ -166,8 +169,13 @@ while True:
             break
         turn = 2
     else:
-        if random(1,100) >= speed:
+        if random.randint(1,100) <= speed:
             print(f"{enemy} missed.")
         else:
             if enemy_damage > defence:
-                
+                health -= enemy_damage - defence
+                print(f"You took {enemy_damage - defence} damage. You are now at {health}.")
+        if health < 0:
+            print("you lost.")
+            break
+        turn = 1
