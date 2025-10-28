@@ -14,6 +14,12 @@ def isint(str):
     except:
         return False
     
+def attack(defence_a, damage_a):
+    if damage_a > defence_a:
+        return damage_a - defence_a
+    else:
+        return 0
+    
 class_points = 100
 while True:
     whant = input(f"you have {class_points} class points to spend on:\n\t1. Damage\n\t2. Defence\n\t3. Health\n\t4. Speed\n\t5. Done\n")
@@ -76,7 +82,7 @@ while True:
     elif whant == "5":
         break
     else:
-        print("As a valid number.\n")
+        print("As a valid imput.\n")
 
 enemy = random.randint(1,5)
 enemy_damage = random.randint(-10,10)
@@ -133,32 +139,33 @@ while True:
         turn = 1
         break
     elif speed < enemy_speed:
-        print(f"you are last.")
+        print(f"{enemy} is first.")
         turn = 2
         break
     else:
         enemy_speed += 1
 
+temdefence = defence
 while True:
     if damage == 0:
-        print("you don't hav egnuth attack")
+        print("you don't hav enough attack")
+        break
     if turn == 1:
+        temdefence = defence
         while True:
             combat = input("\nYou can.\n\t1.attack\n\t2.defend\n\t3.check\n")
             if combat == "1":
-                if damage > enemy_defence:
-                    enemy_health -= damage - enemy_defence
-                    print(f"You did {damage - enemy_defence} damage.")
-                else:
-                    enemy_defence -= 5
-                    print("You did 0 damage.")
-                    print(f"{enemy}'s turn")   
-                turn = 2
-                temdefence = defence
+                enemy_health -= attack(enemy_defence,damage)
+                enemy_defence -= 5
+                if enemy_defence < 0:
+                    enemy_defence = 0
+                print(f"{enemy} is at {enemy_health} health.")
+                print(f"{enemy}'s turn")   
                 break
             elif combat == "2":
                 temdefence = defence + 10
                 print(f"Your defence is now {defence + 10}")
+                print(f"{enemy}'s turn")  
                 break
             elif combat == "3":
                 print(f"{enemy} has:\n{enemy_damage} damage\n{enemy_defence} defence\n{enemy_health} health\n{enemy_speed} speed")
@@ -169,13 +176,12 @@ while True:
             break
         turn = 2
     else:
-        if random.randint(1,100) <= speed:
+        if random.randint(1,500) <= speed:
             print(f"{enemy} missed.")
         else:
-            if enemy_damage > defence:
-                health -= enemy_damage - defence
-                print(f"You took {enemy_damage - defence} damage. You are now at {health}.")
-        if health < 0:
-            print("you lost.")
+            health -= attack(temdefence,enemy_damage)
+            print(f"You are now at {health} health.")
+        if health <= 0:
+            print(f"{enemy} won.")
             break
         turn = 1
