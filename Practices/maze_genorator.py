@@ -97,5 +97,16 @@ def maze_part(name,letter,distance):
         # the x
     #makeing x in to open
         #makes the maze part
-        #h nothing
+        #ha nothing
 
+size_X = 10
+size_y = 10
+maze = []
+
+#setup maze size
+#loop for the lenght 
+while size_X != 0:
+    #loop for the hight
+    while size_y != 0:
+        size_y -= 1
+    size_X -= 1
