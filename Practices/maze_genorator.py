@@ -77,8 +77,17 @@
             #add check item [0 of 0] and check item [0 of 1] - 1
 
         #check item remove item 0
-        #if check item item in stop
+        #if check item in stop
             #output True
         #if check item is empty 
             #output false
 
+# a function that draws the maze needs: distance , side walls x, and the vetical walls y
+#set count y to 0
+# #set count x to 0
+    #loop for walls x in side walls x
+        #loop for wall in side  walls x
+            #if side walls x itme count x of count y
+            #move the turtle distance 
+            #add 1 to count y
+        #add 1 to count x
