@@ -1,112 +1,84 @@
-#Wh 2nd maze genorator
+# Wh 2nd maze genorator 
 
-#imports
-#import turtle
-import turtle
-#import randon
-import random
+#impors 
+#imppot tutle of the drawing 
+#import random to randomly genorate the maze
 
+#the variables
+#the pixel scaile the maze size 
+#the x lenght 
+#the y length
+#the side walls x
+#the vetical walls y
 
-#deine a function that turns letters into numbers
-def maze_part(name,letter,distance):
-    #lots of if statmests that take letters and meaks peaces out of them
-        #the strates peces
-    #makeing I1 into up strate
-    if letter == "i1":
-        #makes the maze part
-        name.forward(distance)
-        name.teleport(name.xcor()+distance,name.ycor()-distance)
-        name.forward(distance)
-        name.teleport(name.xcor()-distance,name.ycor()-distance)
-    #makeing i2 into side strate
-    if letter == "i2":
-        #makes the maze part
-        name.right(90)
-        name.forward(distance)
-        name.teleport(name.xcor()-distance,name.ycor()+distance)
-        name.forward(distance)
-        name.left(90)
-        name.teleport(name.xcor()-distance,name.ycor()-distance)
+#the functions
 
-        #the coners
-    #makeing L1 into up left coners
-    if letter == "l1":
-        #makes the maze part
-        name.teleport(name.xcor()+distance,name.ycor())
-        name.forward(distance)
-        name.left(90)
-        name.forward(distance)
-        name.right(90)
-        name.teleport(name.xcor(),name.ycor()-distance)
-    #makeing L2 into up right coners
-    if letter == "l2":
-        #makes the maze part
-        name.forward(distance)
-        name.right(90)
-        name.forward(distance)
-        name.left(90)
-        name.teleport(name.xcor()-distance,name.ycor()-distance)
-    #makeing L3 into down left coners
-    if letter == "l3":
-        #makes the maze part
-        name.teleport(name.xcor()+distance,name.ycor()+distance)
-        name.right(180)
-        name.forward(distance)
-        name.right(90)
-        name.forward(distance)
-        name.right(90)
-    #makeing L4 into down right coners
-    if letter == "l4":
-        #makes the maze part
-        name.teleport(name.xcor(),name.ycor()+distance)
-        name.left(180)
-        name.forward(distance)
-        name.left(90)
-        name.forward(distance)
-        name.left(90)
-        name.teleport(name.xcor()-distance,name.ycor())
+#a fuction that takes: the the y or x lenght, the x or y length, and hole
+    #if hole is true
+        #set a nother disposibal variable as a 1 list as 0
+        #set x or y length to sumthing disposible - 1
+        #a loop that repeats x or y length disposible
+                #add a 1 to the 1 list 
+        #makeing the loop stop
+        #set an output veriable to 1 list 
+    #else 
+        #set a nother disposibal variable as a 1 list as empty
+        #set x or y length to sumthing disposible
+        #a loop that repeats x or y length disposible
+                #add a 1 to the 1 list 
+        #makeing the loop stop
+        #set an output veriable to 1 list 
+        #set an output veriable to a line with out a hole in it
 
-        #the Ts
-    #makeing T1 into up srate left
-    if letter == "t1":
-        #makes the maze part
-        name.teleport(name.xcor()+distance,name.ycor())
-        name.forward(distance)
-        name.teleport(name.xcor()-distance,name.ycor()-distance)
-    #makeing T2 into up srate right
-    if letter == "t2":
-        #makes the maze part
-        name.forward(distance)
-        name.teleport(name.xcor(),name.ycor()-distance)
-    #makeing T3 into side srate up
-    if letter == "t3":
-        #makes the maze part
-        name.teleport(name.xcor(),name.ycor()+distance)
-        name.right(90)
-        name.forward(distance)
-        name.left(90)
-        name.teleport(name.xcor()-distance,name.ycor()-distance)
-    #makeing T4 into side srate down
-    if letter == "t4":
-        #makes the maze part
-        name.right(90)
-        name.forward(distance)
-        name.left(90)
-        name.teleport(name.xcor()-distance,name.ycor())
+    #set y or x length to sumthing disposible
+    #a loop that repeats y or x length disposible
+        #set x or y length to sumthing disposible
+        #a loop that repeats x or y length disposible
+                #set a nother disposibal variable as a 1 list as empty
+                #add a random number of 0-1 to the 1 list 
+        #makeing the loop stop
+        #add 1 list to output
+    #makeing the loop stop
 
-        # the x
-    #makeing x in to open
-        #makes the maze part
-        #ha nothing
+    #if hole is true
+        #set a nother disposibal variable as a 1 list as empty
+        #set x or y length to sumthing disposible - 1
+        #a loop that repeats x or y length disposible
+                #add a 1 to the 1 list 
+        #makeing the loop stop
+        #add 0 to 1 list
+        #set an output veriable to 1 list 
+    #else 
+        #set a nother disposibal variable as a 1 list as empty
+        #set x or y length to sumthing disposible
+        #a loop that repeats x or y length disposible
+                #add a 1 to the 1 list 
+        #makeing the loop stop
+        #set an output veriable to 1 list 
+        #set an output veriable to a line with out a hole in it
 
-size_X = 10
-size_y = 10
-maze = []
+    #outputs output
 
-#setup maze size
-#loop for the lenght 
-while size_X != 0:
-    #loop for the hight
-    while size_y != 0:
-        size_y -= 1
-    size_X -= 1
+#a function tha checkers if it is solvable takes: side walls x, #the vetical walls y, start, and stop
+    #set checked positions 
+    #set check item to start
+
+    #loop
+        #if y item [check item [0 of 0]] of [check item [0 of 1]] is 0 and, check item [0 of 0] - 1 > or = 0
+            #add check item [0 of 0] and check item [0 of 1] - 1
+
+        #if x item [check item [0 of 1] + 1] of [check item [0 of 0]] is 0 and, check item [0 of 0] - 1 < or = lenght side walls x
+            #add check item [0 of 0] and check item [0 of 1] - 1
+
+        #if y item [check item [0 of 0] + 1] of [check item [0 of 1]] is 0 and, check item [0 of 0] - 1 < or = lenght side walls y
+            #add check item [0 of 0] and check item [0 of 1] - 1
+
+        #if x item [check item [0 of 1]] of [check item [0 of 0]] is 0 and, check item [0 of 0] - 1 > or = 0
+            #add check item [0 of 0] and check item [0 of 1] - 1
+
+        #check item remove item 0
+        #if check item item in stop
+            #output True
+        #if check item is empty 
+            #output false
+
