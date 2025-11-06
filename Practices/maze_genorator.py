@@ -113,27 +113,38 @@ def checkMaze(side_x,vetical_y,start,stop):
 
     #loop
     while True:
-        #if y item [check item [0 of 0]] of [check item [0 of 1]] is 0 and, check item [0 of 0] - 1 >= 0
-        if vetical_y[item[0][0]][item[0][1]] == 0 and item[0][0] -1 >= 0:
+        #if y item [check item [0 of 0]] of [check item [0 of 1]] is 0 and, check item [0 of 0] - 1 >= 0 and not in checked positions
+        if vetical_y[item[0][0]][item[0][1]] == 0 and item[0][0] -1 >= 0 and not [item[0][0],item[0][1] -1] in checked:
             #add check item [0 of 0] and check item [0 of 1] - 1
-            item.append([item[0][0],item[0][1]-1])
+            item.append([item[0][0],item[0][1] -1])
 
-        #if x item [check item [0 of 1] + 1] of [check item [0 of 0]] is 0 and, check item [0 of 0] - 1 <= length side walls x
-        if vetical_y[item[0][1] + 1][item[0][0]] == 0 and item[0][1] -1 <= 0:
+        #if x item [check item [0 of 1] + 1] of [check item [0 of 0]] is 0 and, check item [0 of 0] + 1 <= length side walls x and not in checked positions
+        if side_x[item[0][1] +1][item[0][0]] == 0 and item[0][1] +1 <= len(side_x) and not [item[0][0] +1,item[0][1]] in checked:
             #add check item [0 of 0]  + 1 and check item [0 of 1]
-            item.append([item[0][0] + 1 ,item[0][1]])
+            item.append([item[0][0] +1 ,item[0][1]])
 
-        #if y item [check item [0 of 0] + 1] of [check item [0 of 1]] is 0 and, check item [0 of 0] - 1 <= length side walls y
-            #add check item [0 of 0] and check item [0 of 1] - 1
+        #if y item [check item [0 of 0] + 1] of [check item [0 of 1]] is 0 and, check item [0 of 0] +1 <= length side walls y and not in checked positions
+        if vetical_y[item[0][0] +1][item[0][1]] == 0 and item[0][1] +1 <= len(vetical_y) and not [item[0][0],item[0][1] +1] in checked:
+            #add check item [0 of 0] and check item [0 of 1] + 1
+            item.append([item[0][0],item[0][1] +1])
 
-        #if x item [check item [0 of 1]] of [check item [0 of 0]] is 0 and, check item [0 of 0] - 1 >= 0
-            #add check item [0 of 0] and check item [0 of 1] - 1
+        #if x item [check item [0 of 1]] of [check item [0 of 0]] is 0 and, check item [0 of 0] - 1 >= 0 and not in checked positions
+        if side_x[item[0][1] +1][item[0][0]] == 0 and item[0][1] -1 >= 0 and not [item[0][0] -1,item[0][1]] in checked:
+            #add check item [0 of 0] -1 and check item [0 of 1] -1
+            item.append([item[0][0],item[0][1] -1])
 
+        #add check item to checked positions
+        checked.append(item)
         #check item remove item 0
+        item.pop(0)
         #if check item in stop
+        if stop in item:
             #output True
+            return True
         #if check item is empty 
+        elif item == []:
             #output false
+            return False
 
 # a function that draws the maze needs: distance , side walls x, and the vetical walls y
 
@@ -166,5 +177,5 @@ def checkMaze(side_x,vetical_y,start,stop):
             #add 1 to count
         #theloport th turtle up distance and left count * distance
 
-print(wallRandom(y_len,x_len,True))
-print(wallRandom(x_len,y_len,False))
+wall_x = wallRandom(y_len,x_len,True)
+wall_y = wallRandom(x_len,y_len,False)
