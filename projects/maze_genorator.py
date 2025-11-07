@@ -13,10 +13,6 @@ size = 100
 x_len = 4
 #the y length
 y_len = 6
-#the side walls x
-wall_x = []
-#the vetical walls y
-wall_y = []
 
 #the functions
 
@@ -54,7 +50,7 @@ def wallRandom(length_1,length_2,hole):
         output.append(list)
 
     #set y or x length to sumthing disposible
-    length_1d = length_1
+    length_1d = length_1 -1
     #a loop that repeats y or x length disposible
     while length_1d != 0:
         #set x or y length to sumthing disposible
@@ -114,27 +110,27 @@ def checkMaze(side_x,vetical_y,start,stop):
     #loop
     while True:
         #if y item [check item [0 of 0]] of [check item [0 of 1]] is 0 and, check item [0 of 0] - 1 >= 0 and not in checked positions
-        if vetical_y[item[0][0]][item[0][1]] == 0 and item[0][0] -1 >= 0 and not [item[0][0],item[0][1] -1] in checked:
+        if item[0][0] -1 >= 0 and vetical_y[item[0][0] -1][item[0][1]] == 0 and not checked in [item[0][0],item[0][1] -1]:
             #add check item [0 of 0] and check item [0 of 1] - 1
             item.append([item[0][0],item[0][1] -1])
 
         #if x item [check item [0 of 1] + 1] of [check item [0 of 0]] is 0 and, check item [0 of 0] + 1 <= length side walls x and not in checked positions
-        if side_x[item[0][1] +1][item[0][0]] == 0 and item[0][1] +1 <= len(side_x) and not [item[0][0] +1,item[0][1]] in checked:
+        if item[0][1] +1 <= len(side_x) and side_x[item[0][1] +1][item[0][0]] == 0 and not checked in [item[0][0] +1,item[0][1]]:
             #add check item [0 of 0]  + 1 and check item [0 of 1]
             item.append([item[0][0] +1 ,item[0][1]])
 
         #if y item [check item [0 of 0] + 1] of [check item [0 of 1]] is 0 and, check item [0 of 0] +1 <= length side walls y and not in checked positions
-        if vetical_y[item[0][0] +1][item[0][1]] == 0 and item[0][1] +1 <= len(vetical_y) and not [item[0][0],item[0][1] +1] in checked:
+        if item[0][1] +1 <= len(vetical_y) and vetical_y[item[0][0] +1][item[0][1]] == 0 and not checked in [item[0][0],item[0][1] +1]:
             #add check item [0 of 0] and check item [0 of 1] + 1
             item.append([item[0][0],item[0][1] +1])
 
         #if x item [check item [0 of 1]] of [check item [0 of 0]] is 0 and, check item [0 of 0] - 1 >= 0 and not in checked positions
-        if side_x[item[0][1] +1][item[0][0]] == 0 and item[0][1] -1 >= 0 and not [item[0][0] -1,item[0][1]] in checked:
+        if item[0][1] -1 >= 0 and side_x[item[0][1] -1][item[0][0]] == 0 and  not checked in [item[0][0] -1,item[0][1]]:
             #add check item [0 of 0] -1 and check item [0 of 1] -1
             item.append([item[0][0],item[0][1] -1])
 
         #add check item to checked positions
-        checked.append(item)
+        checked.append(item[0])
         #check item remove item 0
         item.pop(0)
         #if check item in stop
@@ -147,35 +143,68 @@ def checkMaze(side_x,vetical_y,start,stop):
             return False
 
 # a function that draws the maze needs: distance , side walls x, and the vetical walls y
-
-    #start sets this to be able to senter the maze
+def mazeDraw(distance,side_x,vetical_y,start):
+    #teloport to starting postioion
+    turtle.teleport(start[0],start[1])
 
     #loop for walls x in side walls x
+    for x in side_x:
         #set count to 0
+        count = 0
         #loop for wall in side  walls x
+        for wall in x:
             #if wall is 1
+            if wall == 1:
                 #tutle pen down
+                turtle.pendown()
                 #move the turtle distance
+                turtle.forward(distance)
             #if wall is 0
+            else:
                 #tutle pen up
-                #move the turtle distance
+                turtle.penup()
+                #move the turtle distance'
+                turtle.forward(distance)
             #add 1 to count
+            count += 1
         #teloport the turtle up distance and left count * distance
+        turtle.teleport(turtle.xcor() - count * distance,turtle.ycor() + distance)
 
     #teloport to starting postioion
-
+    turtle.teleport(start[0],start[1])
     #rotate the tutle left 90
+    turtle.left(90)
     #loop for walls y in side walls y
+    for x in vetical_y:
         #set count to 0
+        count = 0
         #loop for wall in side  walls y
+        for wall in x:
             #if wall is 1
+            if wall == 1:
                 #tutle pen down
+                turtle.pendown()
                 #move the turtle distance
+                turtle.forward(distance)
             #if wall is 0
+            else:
                 #tutle pen up
+                turtle.penup()
                 #move the turtle distance
+                turtle.forward(distance)
             #add 1 to count
-        #theloport th turtle up distance and left count * distance
+            count += 1
+        #theloport th turtle left distance and down count * distance
+        turtle.teleport(turtle.xcor() + distance,turtle.ycor() - count * distance)
 
 wall_x = wallRandom(y_len,x_len,True)
 wall_y = wallRandom(x_len,y_len,False)
+
+while not checkMaze(wall_x,wall_y,[0,0],[x_len,y_len]):
+    wall_x = wallRandom(y_len,x_len,True)
+    wall_y = wallRandom(x_len,y_len,False)
+
+turtle.speed(5000)
+mazeDraw(50,wall_x,wall_y,[0,0])
+
+turtle.done()
