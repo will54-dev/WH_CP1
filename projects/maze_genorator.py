@@ -7,12 +7,12 @@ import turtle
 import random
 
 #the variables
-#the pixel scaile the maze size
-size = 100
 #the x length
-x_len = 4
+x_len = 7
 #the y length
-y_len = 6
+y_len = 7
+#the pixel scaile the maze size
+size = 500/x_len
 
 #the functions
 
@@ -109,25 +109,42 @@ def checkMaze(side_x,vetical_y,start,stop):
 
     #loop
     while True:
-        #if y item [check item [0 of 0]] of [check item [0 of 1]] is 0 and, check item [0 of 0] - 1 >= 0 and not in checked positions
-        if item[0][0] -1 >= 0 and vetical_y[item[0][0] -1][item[0][1]] == 0 and not checked in [item[0][0],item[0][1] -1]:
-            #add check item [0 of 0] and check item [0 of 1] - 1
-            item.append([item[0][0],item[0][1] -1])
+            
+        #the item
+        check = [item[0][0] -1,item[0][1]]
+        #if it is not in checked
+        if check not in checked:
+            #if y item is moveable
+            if check[0] >= 0 and vetical_y[item[0][0]][item[0][1]] == 0:
+                #add check item [0 of 0] and check item [0 of 1] - 1
+                item.append(check)
 
-        #if x item [check item [0 of 1] + 1] of [check item [0 of 0]] is 0 and, check item [0 of 0] + 1 <= length side walls x and not in checked positions
-        if item[0][1] +1 <= len(side_x) and side_x[item[0][1] +1][item[0][0]] == 0 and not checked in [item[0][0] +1,item[0][1]]:
-            #add check item [0 of 0]  + 1 and check item [0 of 1]
-            item.append([item[0][0] +1 ,item[0][1]])
+        #the item
+        check = [item[0][0],item[0][1]+1]
+        #if it is not in checked
+        if check not in checked:
+            #if x item is moveable
+            if check[1] <= len(side_x) -2 and side_x[item[0][1] +1][item[0][0]] == 0:
+                #add check item [0 of 0]  + 1 and check item [0 of 1]
+                item.append(check)
 
-        #if y item [check item [0 of 0] + 1] of [check item [0 of 1]] is 0 and, check item [0 of 0] +1 <= length side walls y and not in checked positions
-        if item[0][1] +1 <= len(vetical_y) and vetical_y[item[0][0] +1][item[0][1]] == 0 and not checked in [item[0][0],item[0][1] +1]:
-            #add check item [0 of 0] and check item [0 of 1] + 1
-            item.append([item[0][0],item[0][1] +1])
+        #the item
+        check = [item[0][0] +1,item[0][1]]
+        #if it is not in checked
+        if check not in checked:
+            #if y item is moveable
+            if check[0] <= len(vetical_y) -2 and vetical_y[item[0][0] +1][item[0][1]] == 0:
+                #add check item [0 of 0] and check item [0 of 1] + 1
+                item.append([item[0][0] +1,item[0][1]])
 
-        #if x item [check item [0 of 1]] of [check item [0 of 0]] is 0 and, check item [0 of 0] - 1 >= 0 and not in checked positions
-        if item[0][1] -1 >= 0 and side_x[item[0][1] -1][item[0][0]] == 0 and  not checked in [item[0][0] -1,item[0][1]]:
-            #add check item [0 of 0] -1 and check item [0 of 1] -1
-            item.append([item[0][0],item[0][1] -1])
+        #the item
+        check = [item[0][0],item[0][1] -1]
+        #if it is not in checked
+        if check not in checked:
+            #if x item is moveable
+            if check[1] >= 0 and side_x[item[0][1]][item[0][0]] == 0:
+                #add check item [0 of 0] -1 and check item [0 of 1] -1
+                item.append(check)
 
         #add check item to checked positions
         checked.append(item[0])
@@ -197,14 +214,18 @@ def mazeDraw(distance,side_x,vetical_y,start):
         #theloport th turtle left distance and down count * distance
         turtle.teleport(turtle.xcor() + distance,turtle.ycor() - count * distance)
 
+#code
+#seting the walls
 wall_x = wallRandom(y_len,x_len,True)
 wall_y = wallRandom(x_len,y_len,False)
 
-while not checkMaze(wall_x,wall_y,[0,0],[x_len,y_len]):
+#checking if the walls are good
+while not checkMaze(wall_x,wall_y,[0,0],[x_len-1,y_len-1]):
     wall_x = wallRandom(y_len,x_len,True)
     wall_y = wallRandom(x_len,y_len,False)
 
-turtle.speed(5000)
-mazeDraw(50,wall_x,wall_y,[0,0])
+#draw ing the maze
+mazeDraw(size,wall_x,wall_y,[size*x_len/-2,size*y_len/-2])
 
+#making the maze stay
 turtle.done()
