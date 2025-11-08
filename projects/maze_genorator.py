@@ -222,7 +222,7 @@ while True:
 #the y length
 while True:
     y_len = input("How tall do you want it.\n")
-    if y_len.isnumeric() and y_len < 40:
+    if y_len.isnumeric():
         y_len = int(y_len)
         if y_len <= 40:
             break
@@ -245,5 +245,7 @@ while not checkMaze(wall_x,wall_y,[0,0],[x_len-1,y_len-1]):
 #draw ing the maze
 mazeDraw(size,wall_x,wall_y,[size*x_len/-2,size*y_len/-2])
 
+#make the turtle be gone
+turtle.hideturtle()
 #making the maze stay
 turtle.done()
