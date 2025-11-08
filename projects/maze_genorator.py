@@ -6,14 +6,6 @@ import turtle
 #import random to randomly genorate the maze
 import random
 
-#the variables
-#the x length
-x_len = 7
-#the y length
-y_len = 7
-#the pixel scaile the maze size
-size = 500/x_len
-
 #the functions
 
 #a fuction that takes: the the y or x length, the x or y length, and hole
@@ -215,12 +207,38 @@ def mazeDraw(distance,side_x,vetical_y,start):
         turtle.teleport(turtle.xcor() + distance,turtle.ycor() - count * distance)
 
 #code
+#seting the size
+#the x length and checking if a number
+while True:
+    x_len = input("How long do you want it.\n")
+    if x_len.isnumeric():
+        x_len = int(x_len)
+        if x_len <= 40:
+            break
+        print("Too big.")
+    else:
+        print("Not a valid number.")
+
+#the y length
+while True:
+    y_len = input("How tall do you want it.\n")
+    if y_len.isnumeric() and y_len < 40:
+        y_len = int(y_len)
+        if y_len <= 40:
+            break
+        print("Too big.")
+    else:
+        print("Not a valid number.")
+
+#the pixel scaile the maze size
+size = 500/x_len
+
 #seting the walls
 wall_x = wallRandom(y_len,x_len,True)
 wall_y = wallRandom(x_len,y_len,False)
-
 #checking if the walls are good
 while not checkMaze(wall_x,wall_y,[0,0],[x_len-1,y_len-1]):
+    #reseting the walls
     wall_x = wallRandom(y_len,x_len,True)
     wall_y = wallRandom(x_len,y_len,False)
 
