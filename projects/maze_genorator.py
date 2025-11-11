@@ -200,9 +200,9 @@ def mazeDraw(distance,side_x,vetical_y,start):
 wall_x = wallRandom(y_len,x_len,True)
 wall_y = wallRandom(x_len,y_len,False)
 
-while not checkMaze(wall_x,wall_y,[0,0],[x_len,y_len]):
-    wall_x = wallRandom(y_len,x_len,True)
-    wall_y = wallRandom(x_len,y_len,False)
+#while not checkMaze(wall_x,wall_y,[0,0],[x_len,y_len]):
+  #  wall_x = wallRandom(y_len,x_len,True)
+ #   wall_y = wallRandom(x_len,y_len,False)
 
 turtle.speed(5000)
 mazeDraw(50,wall_x,wall_y,[0,0])
