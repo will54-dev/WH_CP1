@@ -21,7 +21,7 @@ menu = {
         "ham": 6.99,
         "chicken": 6.99,
         "burger": 6.99,
-        "egg": 600.99
+        "egg": 599.99
     }
 }
 
@@ -151,6 +151,16 @@ while True:
             #sow that they have not orderd anythig
             print("\nyou have no things to order\n")
     #if the user put in a not valid imput
+    else:
         #show that it is not valid
+        print("\nnot an option.\n")
 
+#set how much you pay
+pay = 0
+#show you orderd
+print("\nyou orderd:")
 #print the order with one loop
+for item in order:
+    print(f"{item[0]} is {item[1]}$")
+    pay += item[1]
+print(f"that comes to {pay}$.")
