@@ -21,7 +21,7 @@ menu = {
         "ham": 6.99,
         "chicken": 6.99,
         "burger": 6.99,
-        "egg": 599.99
+        "eggs": 8.99
     }
 }
 
@@ -29,7 +29,7 @@ menu = {
 order = []
 
 #show that the user should a least oder a main 2 sides and a drink
-print("it's recremende to order 1 main course 2 sides and 1 drink.")
+print("It's recremende to order 1 main course 2 sides and a drink.")
 #loop for order
 while True:
     #ask if the want drink side or main course want to order
