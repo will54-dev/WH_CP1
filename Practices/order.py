@@ -26,7 +26,7 @@ menu = {
 }
 
 # define a fnction that dose the order with the item name
-def orderAdd(item_name):
+def orderPrint(item_name):
     #show the item name with a loop
     #some varibles to make it easer to order
     number = 0
@@ -39,6 +39,9 @@ def orderAdd(item_name):
         #and the item name to item
         item[str(number)] = pr
         print(f"{number}: {pr} is {menu[item_name][pr]}")
+    return item
+
+def orderAdd(item_name,want):
     #ask the user what item name the want 
     want = input(f"\nwhat {item_name} do you want.\n").strip().lower()
     #check if the item name is one the menu
