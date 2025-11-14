@@ -3,20 +3,20 @@
 #dictionary for the menu
 menu = {
     #dictionary for drinkes
-    "drinks": {
+    "drink": {
         "apple juice": 4.99,
         "sprite": 4.99,
         "milk": 8.99,
         "water": 0.00
     },
     #dictionary for sides
-    "sides": {
+    "side": {
         "applesauce": 2.99,
         "corn": 4.99,
         "carrot": 8.99
     },
     #dictionary for mains
-    "food": {
+    "main course": {
         "hotdog": 9.99,
         "ham": 6.99,
         "chicken": 6.99,
@@ -24,6 +24,39 @@ menu = {
         "eggs": 8.99
     }
 }
+
+# define a fnction that dose the order with the item name
+def orderAdd(item_name):
+    #show the item name with a loop
+    #some varibles to make it easer to order
+    number = 0
+    item = {}
+    #to space it
+    print()
+    for pr in menu[item_name]:
+        #add one to number
+        number += 1
+        #and the item name to item
+        item[str(number)] = pr
+        print(f"{number}: {pr} is {menu[item_name][pr]}")
+    #ask the user what item name the want 
+    want = input(f"\nwhat {item_name} do you want.\n").strip().lower()
+    #check if the item name is one the menu
+    try:
+        #tell them it went through
+        print(f"you have orderd {want}\n")
+        #return that item name
+        return [want,menu[item_name][want]]
+    except:
+        #if the other dos not work do try this one to see if they did an number
+        try:
+            #tell them it went through
+            print(f"you have orderd {item[want]}\n")
+            #return that item name
+            return [item[want],menu[item_name][item[want]]]
+        except:
+            #if they bolth don't work tell them that is not on the menu
+            print("\nnot on menu.\n")
 
 #set order
 order = []
@@ -37,114 +70,33 @@ while True:
 
     #if the user wants a drink
     if want == "3" or want == "drink":
-        #show the drinkes with a loop
-        #some varibles to make it easer to order
-        number = 0
-        item = {}
-        #to space it
-        print()
-        for pr in menu["drinks"]:
-            #add one to number
-            number += 1
-            #and the drink to item
-            item[str(number)] = pr
-            print(f"{number}: {pr} is {menu["drinks"][pr]}")
-        #ask the user what drink the want 
-        want = input("\nwhat drink do you want.\n").strip().lower()
-        #check if the drink is one the menu
-        try:
-            #add that drink to order
-            order.append([want,menu["drinks"][want]])
-            #tell them it went through
-            print(f"you have orderd {want}\n")
-        except:
-            #if the other dos not work do try this one to see if they did an number
-            try:
-                #add that drink to order
-                order.append([item[want],menu["drinks"][item[want]]])
-                #tell them it went through
-                print(f"you have orderd {item[want]}\n")
-            except:
-                #if they bolth don't work tell them that is not on the menu
-                print("\nnot on menu.\n")
-        #set want to 3 to not make it end
-        want = "3"
+        #add order add to order
+        order.append(orderAdd("drink"))
 
     #if the user wants to get a side
-    if want == "2" or want == "side":
-        #show the sides with a loop
-        #some varibles to make it easer to order
-        number = 0
-        item = {}
-        #to space it
-        print()
-        for pr in menu["sides"]:
-            #add one to number
-            number += 1
-            #and the sides to item
-            item[str(number)] = pr
-            print(f"{number}: {pr} is {menu["sides"][pr]}")
-        #ask the user what side the want 
-        want = input("\nwhat side do you want.\n").strip().lower()
-    #check if the side is one the menu
-        try:
-            #add that side to order
-            order.append([want,menu["sides"][want]])
-            #tell them it went through
-            print(f"you have orderd {want}\n")
-        except:
-            #if the other dos not work do try this one to see if they did an number
-            try:
-                #add that side to order
-                order.append([item[want],menu["sides"][item[want]]])
-                #tell them it went through
-                print(f"you have orderd {item[want]}\n")
-            except:
-                #if they bolth don't work tell them that is not on the menu
-                print("\nnot on menu.\n")
-        #set want to 3 to not make it end
-        want = "2"
+    elif want == "2" or want == "side":
+        #add order add to order
+        order.append(orderAdd("side"))
 
     #if the user wants to get a main course
-    if want == "1" or want == "main course":
-        #show the main course with a loop
-        #some varibles to make it easer to order
-        number = 0
-        item = {}
-        #to space it
-        print()
-        for pr in menu["food"]:
-            #add one to number
-            number += 1
-            #and the main course to item
-            item[str(number)] = pr
-            print(f"{number}: {pr} is {menu["food"][pr]}")
-        #ask the user what main course the want 
-        want = input("\nwhat main course do you want.\n").strip().lower()
-    #check if the main course is one the menu
-        try:
-            #add that main course to order
-            order.append([want,menu["food"][want]])
-            #tell them it went through
-            print(f"you have orderd {want}\n")
-        except:
-            #if the other dos not work do try this one to see if they did an number
-            try:
-                #add that main course to order
-                order.append([item[want],menu["food"][item[want]]])
-                #tell them it went through
-                print(f"you have orderd {item[want]}\n")
-            except:
-                #if they bolth don't work tell them that is not on the menu
-                print("\nnot on menu.\n")
-        #set want to 3 to not make it end
-        want = "1"
+    elif want == "1" or want == "main course":
+        #add order add to order
+        order.append(orderAdd("main course"))
 
     #if the user wants to order 
     elif want == "4" or want == "order":
         #if order has somthing in it
         if order != []:
-            #continue to printing
+            #set how much you pay
+            pay = 0
+            #show you orderd
+            print("\nyou orderd:")
+            #print the order with one loop
+            for item in order:
+                print(f"{item[0]} is {item[1]}$")
+                pay += item[1]
+            print(f"that comes to {pay}$.")
+            #end
             break
         #else
         else:
@@ -154,13 +106,3 @@ while True:
     else:
         #show that it is not valid
         print("\nnot an option.\n")
-
-#set how much you pay
-pay = 0
-#show you orderd
-print("\nyou orderd:")
-#print the order with one loop
-for item in order:
-    print(f"{item[0]} is {item[1]}$")
-    pay += item[1]
-print(f"that comes to {pay}$.")
