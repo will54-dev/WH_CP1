@@ -1,6 +1,17 @@
 # Wh 2nd flexible caculator
 
-import quality as q
+#function for mutiple equal stetmnts
+def multequl(var,*check):
+    #set out to false
+    out = False
+    #loop for check in check
+    for check in check:
+        #if var is = to check
+        if var == check:
+            #set out to true
+            out = True
+    #output out
+    return out
 
 # define a function for avreg
 def avrag(*imput):
@@ -63,7 +74,7 @@ def userInputs():
                 numbers.append(num)
             except:
                 #if num is done
-                if q.multequl(num ,"done", ""):
+                if multequl(num ,"done", ""):
                     #if numbers is empty output 0
                     if numbers  == []: return [0]
                     #output numbers
@@ -79,27 +90,27 @@ while True:
     want = input("\npick one.\n1. Sum\n2. Average\n3. Max\n4. Min\n5. Product\n6. exit\n").lower().strip()
 
     #if the user pickes sum
-    if q.multequl(want, "1", "sum"):
+    if multequl(want, "1", "sum"):
         print(sum(userInputs()))
 
     #if the user pickes sum
-    elif q.multequl(want, "2", "average"):
+    elif multequl(want, "2", "average"):
         print(avrag(userInputs()))
 
     #if the user pickes sum
-    elif q.multequl(want, "3", "max"):
+    elif multequl(want, "3", "max"):
         print(max(userInputs()))
 
     #if the user pickes sum
-    elif q.multequl(want, "4", "min"):
+    elif multequl(want, "4", "min"):
         print(min(userInputs()))
 
     #if the user pickes sum
-    elif q.multequl(want, "5", "product"):
+    elif multequl(want, "5", "product"):
         print(product(userInputs()))
 
     #if user wants to exit 
-    elif q.multequl(want, "6", "exit"):
+    elif multequl(want, "6", "exit"):
         #exit
         break
 
