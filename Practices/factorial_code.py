@@ -1,7 +1,7 @@
 #WH 2nd factorial
 
 #while imput isnt numaric request input
-r = [1]; imput = [x*list(map(lambda i:int(i) if i.isnumeric() else [0,r.append(1)][0], [input()]))[0] for x in r][len(r)-1]
+r = [1]; imput = [x*list(map(lambda i:int(i) if i.isnumeric() else [0,r.append(1)][0], [input()]))[0] for x in r][-1]
 
 #def calc(num
 def calc(num):
