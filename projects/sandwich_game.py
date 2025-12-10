@@ -114,6 +114,7 @@ encounters = {
             "name": "Pedestal",
             "damage": 0,
             "defense": 0,
+            "speed": 0,
             "hp": 0,
             "exit": "The Pedestal returns back to normal and you find something."
     },
@@ -122,6 +123,7 @@ encounters = {
             "name": "Shrub",
             "damage": 0,
             "defense": 0,
+            "speed": 0,
             "hp": 0,
             "exit": "The Shrub bursts into leaves and you find something."
     },
@@ -130,6 +132,7 @@ encounters = {
             "name": "Brick",
             "damage": 0,
             "defense": 0,
+            "speed": 0,
             "hp": 0,
             "exit": "The Brick brakes."
     },
@@ -138,6 +141,7 @@ encounters = {
             "name": "leaf",
             "damage": 0,
             "defense": 0,
+            "speed": 0,
             "hp": 1,
             "exit": "You stomp on the leaf with a satisfying crunch."
     },
@@ -146,6 +150,7 @@ encounters = {
             "name": "monkey ",
             "damage": 0,
             "defense": 0,
+            "speed": 0,
             "hp": 0,
             "exit": "You punch the monkey and get your sandwich back."
     }
@@ -247,9 +252,9 @@ player = {
         "heavy attack":  "You hit them hard."
     },
     "atacks": {
-        "light attack": 0,
-        "attack": 0,
-        "heavy attack": 0
+        "light attack": [0,0],
+        "attack": [0,0],
+        "heavy attack": [0,0]
     }
 }
 items = {
@@ -268,6 +273,41 @@ items = {
 }
 
 def damage(damage, damage_multiplier, defence, defence_multiplier):
-    return m.floor((damage*damage_multiplier)-(defence*defence_multiplier**((defence-damage)/1)))
+    attack_damage = m.floor(1+(damage*damage_multiplier)-(1*defence_multiplier**((defence-damage))))
+    if attack_damage <= 0:
+        return 0
+    else:
+        return attack_damage
+    
+def evauateOr(item,*or_items):
+    for x in or_items:
+        if item == x:
+            return True
+    return False
 
-print(damage(10,1,1,2.5))
+def dictionaryItem(list):
+    output = {}
+    item = 1
+    for x in list:
+        output[item] = x
+        item += 1
+    return output
+
+
+def battle(player_stats, items, enemy_stats):
+    print(enemy_stats["entrance"])
+    if player_stats["speed"] >= enemy_stats["speed"]:
+        first = "player"
+    else:
+        first = "enemy"
+    
+    want = input("Do you want to:\t\n1.attack\t\n2.defend").lower().strip()
+    if evauateOr(want,"1","attack"):
+        temp_defence = 0
+        print("What attack do you want to do:")
+        key_attack = dictionaryItem(player_stats["atacks"].keys())
+        for print_item in key_attack:
+            print(f"\t{print_item}. {key_attack[print_item]}")
+        want = input()
+        try:
+            
