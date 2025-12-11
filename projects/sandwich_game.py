@@ -270,10 +270,14 @@ items = {
         "attack": 0,
         "speed": 0
     },
+    "stick": {
+        "attack": 0,
+        "speed": 0
+    }
 }
 
 def damage(damage, damage_multiplier, defence, defence_multiplier):
-    attack_damage = m.floor(1+(damage*damage_multiplier)-(1*defence_multiplier**((defence-damage))))
+    attack_damage = m.floor(1+(damage*damage_multiplier)-(1*defence_multiplier**(defence-damage)))
     if attack_damage <= 0:
         return 0
     else:
@@ -295,19 +299,57 @@ def dictionaryItem(list):
 
 
 def battle(player_stats, items, enemy_stats):
+    weapon = items[player_stats["weapon"]]
+    temp_defence = 1
     print(enemy_stats["entrance"])
     if player_stats["speed"] >= enemy_stats["speed"]:
         first = "player"
     else:
         first = "enemy"
     
-    want = input("Do you want to:\t\n1.attack\t\n2.defend").lower().strip()
-    if evauateOr(want,"1","attack"):
-        temp_defence = 0
-        print("What attack do you want to do:")
-        key_attack = dictionaryItem(player_stats["atacks"].keys())
-        for print_item in key_attack:
-            print(f"\t{print_item}. {key_attack[print_item]}")
-        want = input()
-        try:
-            
+    if first == "player":
+        print("Your turn.")
+        while True:
+            want = input("Do you want to:\t\n1.attack\t\n2.defend").lower().strip()
+            if evauateOr(want,"1","attack"):
+                temp_defence = 1
+                #user input
+                while True:
+                    print("What attack do you want to do (number or name):")
+                    key_attack = dictionaryItem(player_stats["atacks"].keys())
+                    for print_item in key_attack:
+                        print(f"\t{print_item}. {key_attack[print_item]}")
+                    want = input().lower().strip()
+                    try:
+                        player_stats["atacks"][want]
+                        attack = want
+                        break
+                    except:
+                        try:
+                            key_attack[want]
+                            attack = key_attack[want]
+                            break
+                        except:
+                            print("Try again.")
+                #attack evauation
+                if enemy_stats["speed"]/5 <= rand.randint(player_stats["speed"]+weapon["speed"],player_stats["atacks"][attack][0]):
+                    print(player_stats["battle text"][attack])
+                    enemy_stats["hp"] -= damage(player_stats["strenght"]+player_stats["atacks"][attack][1],weapon["attack"],enemy_stats["defense"],1)
+                    print(f"The enemy has {enemy_stats["hp"]} HP.")
+                else:
+                    print("You mised.")
+                break
+            elif evauateOr(want,2,"defend"):
+                print("You are defending.")
+                temp_defence = 1.25
+                break
+            else:
+                print("Try again.")
+        first = "enemy"
+    else:
+        print("Enemys turn")
+        player_stats["hp"] -= damage(enemy_stats["damage"],1,player_stats["defence"],temp_defence)
+        print(f"Your Hp is now {player_stats["hp"]}.")
+
+def percentage(dictionary):
+    
