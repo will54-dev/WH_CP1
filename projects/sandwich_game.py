@@ -352,4 +352,22 @@ def battle(player_stats, items, enemy_stats):
         print(f"Your Hp is now {player_stats["hp"]}.")
 
 def percentage(dictionary):
-    
+    chance_list = [0]
+    for x in dictionary:
+        chance_list.append(chance[-1]+x)
+    random = rand.randint(chance_list[0],chance_list[-1])
+    key_list = []
+    for x in dictionary.keys():
+        key_list.append(x)
+    count = 0
+    for x in chance_list:
+        if random < x: break
+        count += 1
+    return key_list[count]
+
+while True:
+    print(text["game"]["start"]+"\n")
+    while True:
+        print(text["info"][player["position"]])
+        break
+    break
