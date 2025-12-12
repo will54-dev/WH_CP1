@@ -3,7 +3,7 @@ import random as rand
 import math as m
 text = {
     "game": {
-        "start": "You are a hiker on a trail having a sandwich then a monkey comes by and has stolen your sandwich and gone off the trail.",
+        "start": "You are a hiker on a trail having a sandwich then a monkey comes by and has stolen your sandwich and gone off the trail. Find your sandwich.",
         "end": "you got your sandwich back you win. Would you like to play again?"
     },
     "info": {
@@ -48,7 +48,7 @@ text = {
         },
     #path one
         "brick room": {
-            "Sit on the stone.": "You fell  healthier.",
+            "Sit on the stone.": "You feel healthier.",
             "Go to the decorated dore.":  "The dore springs to life and eats you."
         },
         "pedestal room": {
@@ -91,7 +91,7 @@ events  = {
     },
 #path one
     "brick room": {
-        "Sit on the stone.": [False, "stat", "HP", 0],
+        "Sit on the stone.": [False, "stat", "hp", 0],
         "Go to the decorated dore.": [False, "move", "cave", True]
     },
     "pedestal room": {
@@ -112,28 +112,28 @@ encounters = {
     "pedestal": {
             "entrance":  "You are fighting a living Pedestal.",
             "name": "Pedestal",
-            "damage": 0,
-            "defense": 0,
-            "speed": 0,
-            "hp": 0,
+            "damage": 4,
+            "defense": 4,
+            "speed": 4,
+            "hp": 4,
             "exit": "The Pedestal returns back to normal and you find something."
     },
     "shrub": {
             "entrance": "You are fighting a living Shrub.",
             "name": "Shrub",
-            "damage": 0,
-            "defense": 0,
-            "speed": 0,
-            "hp": 0,
-            "exit": "The Shrub bursts into leaves and you find something."
+            "damage": 4,
+            "defense": 4,
+            "speed": 4,
+            "hp": 4,
+            "exit": "The Shrub bursts into leaves."
     },
     "brick": {
             "entrance": "A Brick flyers into you and you start fighting.",
             "name": "Brick",
-            "damage": 0,
-            "defense": 0,
-            "speed": 0,
-            "hp": 0,
+            "damage": 4,
+            "defense": 4,
+            "speed": 4,
+            "hp": 4,
             "exit": "The Brick brakes."
     },
     "leaf": {
@@ -141,17 +141,17 @@ encounters = {
             "name": "leaf",
             "damage": 0,
             "defense": 0,
-            "speed": 0,
+            "speed": 1,
             "hp": 1,
             "exit": "You stomp on the leaf with a satisfying crunch."
     },
     "monkey": {
             "entrance": "you find that the monkey is wearing an amulet. Then you hear rumbling, the earth is shaking and then you see the monkey again but it is wearing a magical suit of glimmering bronze armor. You continue to battle with the monkey.",
             "name": "monkey ",
-            "damage": 0,
-            "defense": 0,
-            "speed": 0,
-            "hp": 0,
+            "damage": 4,
+            "defense": 4,
+            "speed": 4,
+            "hp": 4,
             "exit": "You punch the monkey and get your sandwich back."
     }
 }
@@ -334,7 +334,7 @@ def battle(player_stats, items, enemy_stats):
                             except:
                                 print("Try again.")
                     #attack evauation
-                    if enemy_stats["speed"]/5 <= rand.randint(player_stats["speed"]+weapon["speed"],player_stats["atacks"][attack][0]):
+                    if enemy_stats["speed"]/5 <= rand.randint(player_stats["atacks"][attack][0],player_stats["speed"]+weapon["speed"]):
                         print(player_stats["battle text"][attack])
                         enemy_stats["hp"] -= damage(player_stats["strenght"]+player_stats["atacks"][attack][1],weapon["attack"],enemy_stats["defense"],1)
                         print(f"The enemy has {enemy_stats["hp"]} HP.")
@@ -353,7 +353,7 @@ def battle(player_stats, items, enemy_stats):
             player_stats["hp"] -= damage(enemy_stats["damage"],1,player_stats["defence"],temp_defence)
             print(f"Your Hp is now {player_stats["hp"]}.")
         if enemy_stats["hp"] <= 0:
-            print("You wone.")
+            print("\n"+enemy_stats["exit"])
             return True
         if player_stats["hp"] <= 0:
             print("You lost")
@@ -444,11 +444,22 @@ while True:
     
             while True:
                 print("\nWhat do you want to do.")
+                x = dictionaryItem(events[player["position"]].keys())
                 events_key = dictionaryItem(events[player["position"]].keys())
-                for print_items in events_key:
+
+                for print_items in x:
                     if events[player["position"]][events_key[print_items]][0] == False:
                         print(f"{print_items}: {events_key[print_items]}")
-                player_want = input()
+                    else:
+                        events_key.pop(print_items)
+
+                if events_key != {}:
+                    player_want = input()
+                else:
+                    print("There is nothing to do.")
+                    interaction = "null"
+                    break
+
                 try:
                     interaction = events[player["position"]][events_key[int(player_want)]]
                     events[player["position"]][events_key[int(player_want)]][0] = events[player["position"]][events_key[int(player_want)]][-1]
@@ -475,7 +486,7 @@ while True:
                     if "win" in interaction:
                         break
                     elif len(interaction) - interaction.index("battle") == 4:
-                        player["items"].append(interaction[interaction.index("item")+2])
+                        player["items"].append(interaction[interaction.index("battle")+2])
         else:
             print("Try again.")
     print(text["game"]["end"])
