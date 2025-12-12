@@ -105,7 +105,7 @@ events  = {
             "investigate the pedestal": [False, "battle", "pedestal", "air fryer", True]
     },
     "clearing": {
-        "Fight the monkey.": [False, "battle", "monkey", "win", True]
+        "Fight the monkey.": [False, "battle", "monkey", "win", False]
     }
 }
 encounters = {
@@ -239,11 +239,12 @@ chance = {
     }  
 }
 player = {
-    "hp": 0,
-    "strenght": 0,
-    "damage": 0,
-    "defence": 0,
-    "weapon": 'stick"',
+    "hp": 4,
+    "speed": 4,
+    "strenght": 4,
+    "damage": 4,
+    "defence": 4,
+    "weapon": "stick",
     "items": [],
     "position": "trail",
     "battle text": {
@@ -252,27 +253,27 @@ player = {
         "heavy attack":  "You hit them hard."
     },
     "atacks": {
-        "light attack": [0,0],
-        "attack": [0,0],
-        "heavy attack": [0,0]
+        "light attack": [4,4],
+        "attack": [4,4],
+        "heavy attack": [4,4]
     }
 }
 items = {
     "air fryer": {
-        "attack": 0,
-        "speed": 0
+        "attack": 4,
+        "speed": 4
     },
     "book": {
-        "attack": 0,
-        "speed": 0
+        "attack": 4,
+        "speed": 4
     },
     "key": {
-        "attack": 0,
-        "speed": 0
+        "attack": 4,
+        "speed": 4
     },
     "stick": {
-        "attack": 0,
-        "speed": 0
+        "attack": 4,
+        "speed": 4
     }
 }
 
@@ -299,75 +300,185 @@ def dictionaryItem(list):
 
 
 def battle(player_stats, items, enemy_stats):
-    weapon = items[player_stats["weapon"]]
-    temp_defence = 1
-    print(enemy_stats["entrance"])
-    if player_stats["speed"] >= enemy_stats["speed"]:
-        first = "player"
-    else:
-        first = "enemy"
-    
-    if first == "player":
-        print("Your turn.")
-        while True:
-            want = input("Do you want to:\t\n1.attack\t\n2.defend").lower().strip()
-            if evauateOr(want,"1","attack"):
-                temp_defence = 1
-                #user input
-                while True:
-                    print("What attack do you want to do (number or name):")
-                    key_attack = dictionaryItem(player_stats["atacks"].keys())
-                    for print_item in key_attack:
-                        print(f"\t{print_item}. {key_attack[print_item]}")
-                    want = input().lower().strip()
-                    try:
-                        player_stats["atacks"][want]
-                        attack = want
-                        break
-                    except:
+    while True:
+        weapon = items[player_stats["weapon"]]
+        temp_defence = 1
+        print("\n"+enemy_stats["entrance"])
+        if player_stats["speed"] >= enemy_stats["speed"]:
+            first = "player"
+        else:
+            first = "enemy"
+        
+        if first == "player":
+            print("\nYour turn.")
+            while True:
+                want = input("Do you want to:\t\n1. Attack\t\n2. Defend\n").lower().strip()
+                if evauateOr(want,"1","attack"):
+                    temp_defence = 1
+                    #user input
+                    while True:
+                        print("What attack do you want to do (number or name):")
+                        key_attack = dictionaryItem(player_stats["atacks"].keys())
+                        for print_item in key_attack:
+                            print(f"\t{print_item}. {key_attack[print_item]}")
+                        want = input()
                         try:
-                            key_attack[want]
-                            attack = key_attack[want]
+                            player_stats["atacks"][want]
+                            attack = want
                             break
                         except:
-                            print("Try again.")
-                #attack evauation
-                if enemy_stats["speed"]/5 <= rand.randint(player_stats["speed"]+weapon["speed"],player_stats["atacks"][attack][0]):
-                    print(player_stats["battle text"][attack])
-                    enemy_stats["hp"] -= damage(player_stats["strenght"]+player_stats["atacks"][attack][1],weapon["attack"],enemy_stats["defense"],1)
-                    print(f"The enemy has {enemy_stats["hp"]} HP.")
+                            try:
+                                key_attack[int(want)]
+                                attack = key_attack[int(want)]
+                                break
+                            except:
+                                print("Try again.")
+                    #attack evauation
+                    if enemy_stats["speed"]/5 <= rand.randint(player_stats["speed"]+weapon["speed"],player_stats["atacks"][attack][0]):
+                        print(player_stats["battle text"][attack])
+                        enemy_stats["hp"] -= damage(player_stats["strenght"]+player_stats["atacks"][attack][1],weapon["attack"],enemy_stats["defense"],1)
+                        print(f"The enemy has {enemy_stats["hp"]} HP.")
+                    else:
+                        print("You mised.")
+                    break
+                elif evauateOr(want,"2","defend"):
+                    print("You are defending.")
+                    temp_defence = 1.25
+                    break
                 else:
-                    print("You mised.")
-                break
-            elif evauateOr(want,2,"defend"):
-                print("You are defending.")
-                temp_defence = 1.25
-                break
-            else:
-                print("Try again.")
-        first = "enemy"
-    else:
-        print("Enemys turn")
-        player_stats["hp"] -= damage(enemy_stats["damage"],1,player_stats["defence"],temp_defence)
-        print(f"Your Hp is now {player_stats["hp"]}.")
+                    print("Try again.")
+            first = "enemy"
+        else:
+            print("Enemys turn")
+            player_stats["hp"] -= damage(enemy_stats["damage"],1,player_stats["defence"],temp_defence)
+            print(f"Your Hp is now {player_stats["hp"]}.")
+        if enemy_stats["hp"] <= 0:
+            print("You wone.")
+            return True
+        if player_stats["hp"] <= 0:
+            print("You lost")
+            return False
 
 def percentage(dictionary):
     chance_list = [0]
     for x in dictionary:
-        chance_list.append(chance[-1]+x)
+        chance_list.append(chance_list[-1]+x)
     random = rand.randint(chance_list[0],chance_list[-1])
     key_list = []
-    for x in dictionary.keys():
-        key_list.append(x)
+    for x in dictionary:
+        key_list.append(dictionary[x])
     count = 0
     for x in chance_list:
         if random < x: break
         count += 1
-    return key_list[count]
+    return key_list[count-1]
 
 while True:
-    print(text["game"]["start"]+"\n")
+    print(text["game"]["start"])
+    encounter = percentage(chance[player["position"]])
+    if encounter != "null":
+        battle(player,items,encounters[encounter])
+
     while True:
-        print(text["info"][player["position"]])
+        print("\n"+text["info"][player["position"]])
+ 
+        player_want = input("\nWould you like to do (number or word).\n1. Move\n2. Equip\n3. do something\n").lower().strip()
+        if evauateOr(player_want,"1", "move"):
+
+            while True:
+                print("\nWere would you like to go.")
+                key_move = dictionaryItem(movement[player["position"]].keys())
+                for print_items in key_move:
+                    print(f"{print_items}. {key_move[print_items]}")
+                player_want = input()
+                try:
+                    position = movement[player["position"]][key_move[int(player_want)]]
+                    break
+                except:
+                    try:
+                        position = movement[player["position"]][player_want]
+                        break
+                    except:
+                        print("Try again.")
+            player["position"] = position
+            encounter = percentage(chance[player["position"]])
+            if encounter != "null":
+                battle(player,items,encounters[encounter])
+
+        elif evauateOr(player_want,"2", "Equip"):
+
+            while True:
+                print(f"\nYou currently have {player["weapon"]} with {items[player["weapon"]]["attack"]} strength and {items[player["weapon"]]["speed"]} speed equiped.")
+
+                player_want = input("You can.\n1: Equip\n2: Go back\n").lower().strip()
+                if evauateOr(player_want,"1","equip"):
+                    if player["items"] != []:
+    
+                        while True:
+                            print("\nWhat item(s) do you want to equip.")
+                            item_num = dictionaryItem(player["items"])
+                            for print_items in item_num:
+                                print(f"{print_items}. {item_num[print_items]}: with {items[item_num[print_items]]["attack"]} strength and {items[item_num[print_items]]["speed"]} speed")
+                            player_want = input()
+                            try:
+                                player["weapon"] = item_num[int(player_want)]
+                                break
+                            except:
+                                try:
+                                    items[player_want]
+                                    player["weapon"] = player_want
+                                    break
+                                except:
+                                    print("Try again.")
+                        print(f"\nYour new weapon is {player["weapon"]}.")
+                        break
+                    else:
+                        print("You have no items.")
+                        break
+                elif evauateOr(player_want,"2","go back"):
+                    break
+                else:
+                    print("Try again.")
+
+        elif evauateOr(player_want,"3", "do something"):
+    
+            while True:
+                print("\nWhat do you want to do.")
+                events_key = dictionaryItem(events[player["position"]].keys())
+                for print_items in events_key:
+                    if events[player["position"]][events_key[print_items]][0] == False:
+                        print(f"{print_items}: {events_key[print_items]}")
+                player_want = input()
+                try:
+                    interaction = events[player["position"]][events_key[int(player_want)]]
+                    events[player["position"]][events_key[int(player_want)]][0] = events[player["position"]][events_key[int(player_want)]][-1]
+                    print(text["events"][player["position"]][events_key[int(player_want)]])
+                    break
+                except:
+                    try:
+                        interaction = events[player["position"]][player_want]
+                        events[player["position"]][player_want][0] = events[player["position"]][player_want][-1]
+                        print(text["events"][player["position"]][player_want])
+                        break
+                    except:
+                        print("Try again.")
+            if "move" in interaction:
+                player["position"] = interaction[interaction.index("move")+1]
+            if "item" in interaction:
+                player["items"].append(interaction[interaction.index("item")+1])
+            if "stat" in interaction:
+                player[interaction[interaction.index("stat")+1]] += interaction[interaction.index("stat")+2]
+            if "to" in interaction:
+                events[interaction[interaction.index("to")+1]][interaction[interaction.index("to")+2]] = interaction[interaction.index("to")+3]
+            if "battle" in interaction:
+                if battle(player,items,encounters[interaction[interaction.index("battle")+1]]):
+                    if "win" in interaction:
+                        break
+                    elif len(interaction) - interaction.index("battle") == 4:
+                        player["items"].append(interaction[interaction.index("item")+2])
+        else:
+            print("Try again.")
+    print(text["game"]["end"])
+    player_want = input("would you like to play again.\n1. Yes\n2. No").lower().strip()
+    if evauateOr(player_want,"2","no"):
         break
-    break
