@@ -3,21 +3,21 @@ import random as rand
 import math as m
 text = {
     "game": {
-        "start": "You are a hiker on a trail having a sandwich then a monkey comes by and has stolen your sandwich and gone off the trail. Find your sandwich.",
+        "start": "You are a hiker on a trail having a sandwich, then a monkey comes by and has stolen your sandwich and gone off the trail. Find your sandwich.",
         "end": "you got your sandwich back you win. Would you like to play again?"
     },
     "info": {
     #section one
-        "trail": "You are on the trail and the monkey went into the forest. There is nothing around.",
+        "trail": "You are on the trail, and the monkey went into the forest. There is nothing around.",
         "wooded area": "You are in a wooded area with lots of little shrubs around.",
-        "brick wall":  "You see a big brick wall made of a limestone you see a tomato slice on the side of the wall. The wall has a key hole in the side, nothing else of interest.",
+        "brick wall":  "You see a big brick wall made of limestone, you see a tomato slice on the side of the wall. The wall has a key hole in the side, nothing else of interest.",
         "bench": "The wall seems to continue on until it abruptly stops and you see a bench with a tissue on it.",
     #path two
-        "courtyard": "You find yourself in a courtyard with some dumbbells in the corner and a path forward.",
+        "courtyard": "You find yourself in a courtyard with some dumbbells in the corner, and a path forward.",
         "field": "you are in a big field with a rock.",
     #path one
-        "brick room": "You are in a brick room with two dores each on one wall, one dore is decorated with stone carvings the other is just made of wood. The room also has a large stone in the middle.",
-        "pedestal room": "You enter an empty room with a pedestal in the middle of the room",
+        "brick room": "You are in a brick room with two doors each on one wall, one door is decorated with stone carvings the other is just made of wood. The room also has a large stone in the middle.",
+        "pedestal room": "You enter an empty room with a pedestal in the middle of the room.",
     #end
         "cave": "You are in a cave? It has some pickles on the ground, there is a pool of water on your right and the cave continues.",
         "pedestal cave": "You find yourself in another cave with a pedestal in it.",
@@ -30,39 +30,49 @@ text = {
             "Do nothing.": "Why are you waiting around, the monkey is getting away."
         },
         "wooded area": {
-            "Touch the shrub.": "The scrub you touch comes to life and tries to kill you."
+            "Touch the shrub.": "The shrub you touch comes to life and tries to kill you.",
+            "Do nothing.": "Why are you waiting around, the monkey is getting away."
         },
         "brick wall": {
             "Mess with the key hole.":  "You fall through the ground.",
-            "Use the key.": "The wall opens and you step through."
+            "Use the key.": "The wall opens and you step through and you take the key out.",
+            "Do nothing.": "Why are you waiting around, the monkey is getting away."
         },
         "bench": {
-            "Pick up the tissue.": "You find a key under the tissue."
+            "Pick up the tissue.": "You find a key under the tissue.",
+            "Do nothing.": "Why are you waiting around, the monkey is getting away."
         },
     #path two
         "courtyard": {
-            "Use the dumbbells to get stronger.":  "You feel stronger."
+            "Use the dumbbells to get stronger.":  "You feel stronger.",
+            "Do nothing.": "Why are you waiting around, the monkey is getting away."
         },
         "field": {
-            "Sit on the rock.":  "you fall through the ground."
+            "Sit on the rock.":  "you fall through the ground.",
+            "Do nothing.": "Why are you waiting around, the monkey is getting away."
         },
     #path one
         "brick room": {
             "Sit on the stone.": "You feel healthier.",
-            "Go to the decorated dore.":  "The dore springs to life and eats you."
+            "Go to the decorated door.":  "The door comes to life and eats you.",
+            "Do nothing.": "Why are you waiting around, the monkey is getting away."
         },
         "pedestal room": {
-            "Investigate the pedestal.": "The pedestal springs to life and you start fighting."
+            "Investigate the pedestal.": "The pedestal springs to life and you start fighting.",
+            "Do nothing.": "Why are you waiting around, the monkey is getting away."
         },
     #end
         "cave": {
-            "Investigate the pool of water.": "You fall into the water."
+            "Investigate the pool of water.": "You fall into the water.",
+            "Do nothing.": "Why are you waiting around, the monkey is getting away."
         },
         "pedestal cave": {
-             "investigate the pedestal": "The pedestal springs to life and you start fighting. Wait have we done this before"
+             "investigate the pedestal": "The pedestal springs to life and you start fighting.",
+             "Do nothing.": "Why are you waiting around, the monkey is getting away."
         },
         "clearing": {
-            "Fight the monkey.": "You walk up to the monkey."
+            "Walk up to the monkey.": "You walk up to the monkey.",
+            "Do nothing.": "Why are you waiting around, the monkey is right there."
         }
     }
 }
@@ -73,39 +83,49 @@ events  = {
         "Do nothing.": [False, False]
     },
     "wooded area": {
-        "Touch the shrub.": [False, "battle", "shrub", True]
+        "Touch the shrub.": [False, "battle", "shrub", True],
+        "Do nothing.": [False, False]
     },
     "brick wall": {
         "Mess with the key hole.": [False, "move", "brick room", True],
-        "Use the key.": [True, "move", "courtyard", True]
+        "Use the key.": [True, "move", "courtyard", True],
+        "Do nothing.": [False, False]
     },
     "bench": {
-        "Pick up the tissue.": [False, "item", "key", "to", "brick wall", "Use the key.", False, True]
+        "Pick up the tissue.": [False, "item", "key", "to", "brick wall", "Use the key.", False, True],
+        "Do nothing.": [False, False]
     },
 #path two
     "courtyard": {
-        "Use the dumbbells to get stronger.": [False, "stat", "strength", 0, True]
+        "Use the dumbbells to get stronger.": [False, "stat", "damage", 2, True],
+        "Do nothing.": [False, False]
     },
     "field": {
-        "Sit on the rock.": [False, "move", "cave", True]
+        "Sit on the rock.": [False, "move", "cave", True],
+        "Do nothing.": [False, False]
     },
 #path one
     "brick room": {
-        "Sit on the stone.": [False, "stat", "hp", 0],
-        "Go to the decorated dore.": [False, "move", "cave", True]
+        "Sit on the stone.": [False, "stat", "hp", 2],
+        "Go to the decorated door.": [False, "move", "cave", True],
+        "Do nothing.": [False, False]
     },
     "pedestal room": {
-        "Investigate the pedestal.": [False, "battle", "pedestal", "book", True]
+        "Investigate the pedestal.": [False, "battle", "pedestal", "book", True],
+        "Do nothing.": [False, False]
     },
 #end
     "cave": {
-        "Investigate the pool of water.": [False, "move", "pedestal cave", False]
+        "Investigate the pool of water.": [False, "move", "pedestal cave", False],
+        "Do nothing.": [False, False]
     },
     "pedestal cave": {
-            "investigate the pedestal": [False, "battle", "pedestal", "air fryer", True]
+            "investigate the pedestal": [False, "battle", "pedestal", "air fryer", True],
+            "Do nothing.": [False, False]
     },
     "clearing": {
-        "Fight the monkey.": [False, "battle", "monkey", "win", False]
+        "Fight the monkey.": [False, "battle", "monkey", "win", False],
+        "Do nothing.": [False, False]
     }
 }
 encounters = {
@@ -239,41 +259,39 @@ chance = {
     }  
 }
 player = {
-    "hp": 4,
+    "hp": 20,
     "speed": 4,
-    "strenght": 4,
-    "damage": 4,
-    "defence": 4,
+    "damage": 2,
+    "defence": 3,
     "weapon": "stick",
     "items": [],
     "position": "trail",
     "battle text": {
-        "light attack": "You hit them fast.",
-        "attack": "You hit them.",
-        "heavy attack":  "You hit them hard."
+        "attack": "You hit.",
+        "heavy attack":  "You hit hard."
     },
+    #speed, X attack
     "atacks": {
-        "light attack": [4,4],
-        "attack": [4,4],
-        "heavy attack": [4,4]
+        "attack": [0,1],
+        "heavy attack": [-2,2]
     }
 }
 items = {
     "air fryer": {
-        "attack": 4,
-        "speed": 4
+        "attack": 6,
+        "speed": 2
     },
     "book": {
-        "attack": 4,
-        "speed": 4
+        "attack": 3,
+        "speed": 5
     },
     "key": {
-        "attack": 4,
-        "speed": 4
+        "attack": 0,
+        "speed": 0
     },
     "stick": {
-        "attack": 4,
-        "speed": 4
+        "attack": 2,
+        "speed": 0
     }
 }
 
@@ -300,27 +318,26 @@ def dictionaryItem(list):
 
 
 def battle(player_stats, items, enemy_stats):
+    print("\033c"+enemy_stats["entrance"])
+    input("Press enter to continue.\n")
+    weapon = items[player_stats["weapon"]]
+    if player_stats["speed"] >= enemy_stats["speed"]:
+        first = "player"
+    else:
+        first = "enemy"
     while True:
-        weapon = items[player_stats["weapon"]]
         temp_defence = 1
-        print("\n"+enemy_stats["entrance"])
-        if player_stats["speed"] >= enemy_stats["speed"]:
-            first = "player"
-        else:
-            first = "enemy"
-        
         if first == "player":
-            print("\nYour turn.")
             while True:
-                want = input("Do you want to:\t\n1. Attack\t\n2. Defend\n").lower().strip()
+                want = input("\033cYour turn, waht do you want to:\t\n1. Attack\t\n2. Defend\n").lower().strip()
                 if evauateOr(want,"1","attack"):
                     temp_defence = 1
                     #user input
                     while True:
-                        print("What attack do you want to do (number or name):")
+                        print("\033cWhat attack do you want to do (number or name):")
                         key_attack = dictionaryItem(player_stats["atacks"].keys())
                         for print_item in key_attack:
-                            print(f"\t{print_item}. {key_attack[print_item]}")
+                            print(f"{print_item}. {key_attack[print_item]}")
                         want = input()
                         try:
                             player_stats["atacks"][want]
@@ -333,30 +350,38 @@ def battle(player_stats, items, enemy_stats):
                                 break
                             except:
                                 print("Try again.")
+                                input("Press enter to continue.\n")
                     #attack evauation
                     if enemy_stats["speed"]/5 <= rand.randint(player_stats["atacks"][attack][0],player_stats["speed"]+weapon["speed"]):
                         print(player_stats["battle text"][attack])
-                        enemy_stats["hp"] -= damage(player_stats["strenght"]+player_stats["atacks"][attack][1],weapon["attack"],enemy_stats["defense"],1)
+                        enemy_stats["hp"] -= damage(player_stats["damage"]+weapon["attack"],player_stats["atacks"][attack][1],enemy_stats["defense"],1)
                         print(f"The enemy has {enemy_stats["hp"]} HP.")
                     else:
-                        print("You mised.")
+                        print("\033cYou mised.")
+                        input("Press enter to continue.\n")
                     break
                 elif evauateOr(want,"2","defend"):
-                    print("You are defending.")
+                    print("\033cYou are defending.")
+                    input("Press enter to continue.\n")
                     temp_defence = 1.25
                     break
                 else:
                     print("Try again.")
+                    input("Press enter to continue.\n")
             first = "enemy"
         else:
-            print("Enemys turn")
+            print("\033cEnemys turn")
             player_stats["hp"] -= damage(enemy_stats["damage"],1,player_stats["defence"],temp_defence)
             print(f"Your Hp is now {player_stats["hp"]}.")
+            input("Press enter to continue.\n")
+            first = "player"
         if enemy_stats["hp"] <= 0:
-            print("\n"+enemy_stats["exit"])
+            print("\033c"+enemy_stats["exit"])
+            input("Press enter to continue.\n")
             return True
         if player_stats["hp"] <= 0:
-            print("You lost")
+            print("\033cYou lost")
+            input("Press enter to continue.\n")
             return False
 
 def percentage(dictionary):
@@ -373,20 +398,21 @@ def percentage(dictionary):
         count += 1
     return key_list[count-1]
 
+print("\033c")
 while True:
     print(text["game"]["start"])
+    input("Press enter to continue.\n")
     encounter = percentage(chance[player["position"]])
     if encounter != "null":
         battle(player,items,encounters[encounter])
 
     while True:
-        print("\n"+text["info"][player["position"]])
- 
-        player_want = input("\nWould you like to do (number or word).\n1. Move\n2. Equip\n3. do something\n").lower().strip()
+        print("\033c"+text["info"][player["position"]])
+        player_want = input("Would you like to do (number or word).\n1. Move\n2. Equip\n3. Event\n").lower().strip()
         if evauateOr(player_want,"1", "move"):
 
             while True:
-                print("\nWere would you like to go.")
+                print("\033cWere would you like to go.")
                 key_move = dictionaryItem(movement[player["position"]].keys())
                 for print_items in key_move:
                     print(f"{print_items}. {key_move[print_items]}")
@@ -400,6 +426,7 @@ while True:
                         break
                     except:
                         print("Try again.")
+                        input("Press enter to continue.\n")
             player["position"] = position
             encounter = percentage(chance[player["position"]])
             if encounter != "null":
@@ -410,12 +437,12 @@ while True:
             while True:
                 print(f"\nYou currently have {player["weapon"]} with {items[player["weapon"]]["attack"]} strength and {items[player["weapon"]]["speed"]} speed equiped.")
 
-                player_want = input("You can.\n1: Equip\n2: Go back\n").lower().strip()
+                player_want = input("\033cYou can.\n1: Equip\n2: Go back\n").lower().strip()
                 if evauateOr(player_want,"1","equip"):
                     if player["items"] != []:
     
                         while True:
-                            print("\nWhat item(s) do you want to equip.")
+                            print("\033cWhat item(s) do you want to equip.")
                             item_num = dictionaryItem(player["items"])
                             for print_items in item_num:
                                 print(f"{print_items}. {item_num[print_items]}: with {items[item_num[print_items]]["attack"]} strength and {items[item_num[print_items]]["speed"]} speed")
@@ -430,20 +457,24 @@ while True:
                                     break
                                 except:
                                     print("Try again.")
-                        print(f"\nYour new weapon is {player["weapon"]}.")
+                                    input("Press enter to continue.")
+                        print(f"Your new weapon is {player["weapon"]}.")
+                        input("Press enter to continue.\n")
                         break
                     else:
-                        print("You have no items.")
+                        print("\033cYou have no items.")
+                        input("Press enter to continue.\n")
                         break
                 elif evauateOr(player_want,"2","go back"):
                     break
                 else:
                     print("Try again.")
+                    input("Press enter to continue.\n")
 
-        elif evauateOr(player_want,"3", "do something"):
+        elif evauateOr(player_want,"3", "event"):
     
             while True:
-                print("\nWhat do you want to do.")
+                print("\033cWhat do you want to do.")
                 x = dictionaryItem(events[player["position"]].keys())
                 events_key = dictionaryItem(events[player["position"]].keys())
 
@@ -456,7 +487,8 @@ while True:
                 if events_key != {}:
                     player_want = input()
                 else:
-                    print("There is nothing to do.")
+                    print("\033cThere is nothing to do.")
+                    input("Press enter to continue.\n")
                     interaction = "null"
                     break
 
@@ -480,16 +512,18 @@ while True:
             if "stat" in interaction:
                 player[interaction[interaction.index("stat")+1]] += interaction[interaction.index("stat")+2]
             if "to" in interaction:
-                events[interaction[interaction.index("to")+1]][interaction[interaction.index("to")+2]] = interaction[interaction.index("to")+3]
+                events[interaction[interaction.index("to")+1]][interaction[interaction.index("to")+2]][0] = interaction[interaction.index("to")+3]
             if "battle" in interaction:
                 if battle(player,items,encounters[interaction[interaction.index("battle")+1]]):
                     if "win" in interaction:
                         break
                     elif len(interaction) - interaction.index("battle") == 4:
                         player["items"].append(interaction[interaction.index("battle")+2])
+                        print(f"You found a {interaction[interaction.index("battle")+2]}.")
         else:
             print("Try again.")
+            input("Press enter to continue.\n")
     print(text["game"]["end"])
-    player_want = input("would you like to play again.\n1. Yes\n2. No").lower().strip()
+    player_want = input("\033cWould you like to play again.\n1. Yes\n2. No\n").lower().strip()
     if evauateOr(player_want,"2","no"):
         break
