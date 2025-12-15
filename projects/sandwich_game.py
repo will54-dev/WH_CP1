@@ -76,7 +76,7 @@ text = {
         }
     }
 }
-events  = {
+events_1  = {
 #section one
     #section one
     "trail": {
@@ -124,7 +124,7 @@ events  = {
             "Do nothing.": [False, False]
     },
     "clearing": {
-        "Fight the monkey.": [False, "battle", "monkey", "win", False],
+        "Walk up to the monkey.": [False, "battle", "monkey", "win", False],
         "Do nothing.": [False, False]
     }
 }
@@ -178,45 +178,56 @@ encounters = {
 movement = {
 #section one
     "trail": {
-        "Go into the forest.": "wooded area"
+        "Go into the forest.": "wooded area",
+        "Don't move.": "trail"
     },
     "wooded area": {
         "Go back to the trail.": "trail",
-        "Continue into the forest.": "brick wall"
+        "Continue into the forest.": "brick wall",
+        "Don't move.": "wooded area"
     },
     "brick wall": {
         "Follow the wall.": "bench",
-        "Go back into the wooded area.": "wooded area"
+        "Go back into the wooded area.": "wooded area",
+        "Don't move.": "brick wall"
     },
     "bench": {
-        "Go back to the key hole in the wall.": "brick wall"
+        "Go back to the key hole in the wall.": "brick wall",
+        "Don't move.": "bench"
     },
 #path two
     "courtyard": {
-        "Go through the path.": "field"
+        "Go through the path.": "field",
+        "Don't move.": "courtyard"
     },
     "field": {
-        "Go back to the courtyard.": "courtyard"
+        "Go back to the courtyard.": "courtyard",
+        "Don't move.": "field"
     },
 #path one
     "brick room": {
-        "Go through the wooden dore.": "pedestal room"
+        "Go through the wooden dore.": "pedestal room",
+        "Don't move.": "brick room"
     },
     "pedestal room": {
-        "Go back through the dore.": "brick room"
+        "Go back through the dore.": "brick room",
+        "Don't move.": "pedestal room"
     },
 #end
     "cave": {
-        "Continue through the cave.": "clearing"
+        "Continue through the cave.": "clearing",
+        "Don't move.": "cave"
     },
     "pedestal cave": {
-        "Go back through the pool of water": "cave"
+        "Go back through the pool of water": "cave",
+        "Don't move.": "pedestal cave"
     },
     "clearing": {
-        "Leave": "cave"
+        "Leave": "cave",
+        "Don't move.": "clearing"
     }  
 }
-chance = {
+chance_1 = {
 #section one
     "trail": {
         100: "null"
@@ -258,7 +269,7 @@ chance = {
         100: "null"
     }  
 }
-player = {
+player_1 = {
     "hp": 20,
     "speed": 4,
     "damage": 2,
@@ -394,13 +405,16 @@ def percentage(dictionary):
         key_list.append(dictionary[x])
     count = 0
     for x in chance_list:
-        if random < x: break
+        if random <= x: break
         count += 1
     return key_list[count-1]
 
-print("\033c")
+
 while True:
-    print(text["game"]["start"])
+    player = player_1.copy()
+    events = events_1.copy()
+    chance = chance_1.copy()
+    print("\033c"+text["game"]["start"])
     input("Press enter to continue.\n")
     encounter = percentage(chance[player["position"]])
     if encounter != "null":
@@ -430,7 +444,8 @@ while True:
             player["position"] = position
             encounter = percentage(chance[player["position"]])
             if encounter != "null":
-                battle(player,items,encounters[encounter])
+                if battle(player,items,encounters[encounter]):
+                    chance[player["position"]] = {100: "null"}
 
         elif evauateOr(player_want,"2", "Equip"):
 
@@ -475,8 +490,8 @@ while True:
     
             while True:
                 print("\033cWhat do you want to do.")
-                x = dictionaryItem(events[player["position"]].keys())
                 events_key = dictionaryItem(events[player["position"]].keys())
+                x = events_key.copy()
 
                 for print_items in x:
                     if events[player["position"]][events_key[print_items]][0] == False:
@@ -495,16 +510,19 @@ while True:
                 try:
                     interaction = events[player["position"]][events_key[int(player_want)]]
                     events[player["position"]][events_key[int(player_want)]][0] = events[player["position"]][events_key[int(player_want)]][-1]
-                    print(text["events"][player["position"]][events_key[int(player_want)]])
+                    print("\033c"+text["events"][player["position"]][events_key[int(player_want)]])
+                    input("Press enter to continue.\n")
                     break
                 except:
                     try:
                         interaction = events[player["position"]][player_want]
                         events[player["position"]][player_want][0] = events[player["position"]][player_want][-1]
-                        print(text["events"][player["position"]][player_want])
+                        print("\033c"+text["events"][player["position"]][player_want])
+                        input("Press enter to continue.\n")
                         break
                     except:
                         print("Try again.")
+                        input("Press enter to continue.\n")
             if "move" in interaction:
                 player["position"] = interaction[interaction.index("move")+1]
             if "item" in interaction:
